@@ -1,0 +1,40 @@
+<?php
+// Create a simple favicon
+$size = 32;
+$image = imagecreate($size, $size);
+
+// Set colors
+$bg_color = imagecolorallocate($image, 37, 99, 235); // Blue
+$white = imagecolorallocate($image, 255, 255, 255);
+
+// Fill background
+imagefill($image, 0, 0, $bg_color);
+
+// Draw a simple building icon
+$building_color = $white;
+$building_width = 20;
+$building_height = 20;
+$x = ($size - $building_width) / 2;
+$y = ($size - $building_height) / 2;
+
+// Draw building shape
+imagefilledrectangle($image, $x, $y, $x + $building_width, $y + $building_height, $building_color);
+
+// Draw windows
+$window_color = $bg_color;
+$window_size = 4;
+$window_spacing = 6;
+
+for ($i = 0; $i < 2; $i++) {
+    for ($j = 0; $j < 2; $j++) {
+        $wx = $x + 4 + ($j * $window_spacing);
+        $wy = $y + 4 + ($i * $window_spacing);
+        imagefilledrectangle($image, $wx, $wy, $wx + $window_size, $wy + $window_size, $window_color);
+    }
+}
+
+// Output as ICO
+header('Content-Type: image/x-icon');
+imagepng($image);
+imagedestroy($image);
+?>
