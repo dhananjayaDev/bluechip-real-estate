@@ -109,6 +109,115 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             margin-top: 2px;
         }
         
+        /* Responsive Header Styles */
+        @media (max-width: 768px) {
+            .top-header {
+                padding: 6px 0;
+                font-size: 12px;
+            }
+            
+            .top-header .col-md-6:first-child {
+                text-align: center;
+                margin-bottom: 4px;
+            }
+            
+            .top-header .col-md-6:last-child {
+                text-align: center;
+            }
+            
+            .main-header {
+                padding: 8px 0;
+            }
+            
+            .navbar-brand {
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .navbar-brand .logo-container {
+                height: 40px;
+            }
+            
+            .navbar-brand .company-info {
+                margin-left: 8px;
+                height: 40px;
+            }
+            
+            .navbar-brand .company-name {
+                font-size: 12px;
+            }
+            
+            .navbar-brand .tagline {
+                font-size: 9px;
+            }
+            
+            .navbar-brand img {
+                height: 35px !important;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+                margin-top: 15px;
+            }
+            
+            .navbar-nav .nav-item {
+                margin: 5px 0;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            
+            .dropdown-menu {
+                text-align: left;
+                border: none;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .top-header {
+                padding: 4px 0;
+                font-size: 11px;
+            }
+            
+            .main-header {
+                padding: 6px 0;
+            }
+            
+            .navbar-brand {
+                height: 35px;
+                font-size: 14px;
+            }
+            
+            .navbar-brand .logo-container {
+                height: 35px;
+            }
+            
+            .navbar-brand .company-info {
+                margin-left: 6px;
+                height: 35px;
+            }
+            
+            .navbar-brand .company-name {
+                font-size: 11px;
+            }
+            
+            .navbar-brand .tagline {
+                font-size: 8px;
+            }
+            
+            .navbar-brand img {
+                height: 30px !important;
+            }
+            
+            .navbar-toggler {
+                padding: 4px 8px;
+                font-size: 14px;
+            }
+        }
+        
         .btn-outline-primary:hover {
             background-color: #1e3a8a !important;
             border-color: #1e3a8a !important;
@@ -188,6 +297,15 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
         
         .footer .contact-info i {
             color: white;
+        }
+        
+        .footer .contact-info p {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer .contact-info p span {
+            flex: 1;
         }
         
         /* About Section */
@@ -270,13 +388,161 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             border: 3px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Contact Section */
-        .contact-section {
-            position: relative;
-            min-height: 30vh;
-            padding: 40px 0;
-            background: #f8f9fa;
+        /* Partners Section */
+        .partners-section {
+            background: white;
+            padding: 60px 0;
+            overflow: hidden;
         }
+         
+         .partners-section .section-title {
+             color: var(--secondary-color);
+             font-size: 2.5rem;
+             font-weight: 700;
+             margin-bottom: 15px;
+         }
+         
+         .partners-section .section-subtitle {
+             color: var(--text-color);
+             font-size: 1.1rem;
+             margin-bottom: 0;
+         }
+         
+        .partners-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: white;
+            padding: 30px 0;
+        }
+         
+         .partners-container::before,
+         .partners-container::after {
+             content: '';
+             position: absolute;
+             top: 0;
+             bottom: 0;
+             width: 100px;
+             z-index: 2;
+             pointer-events: none;
+         }
+         
+         .partners-container::before {
+             left: 0;
+             background: linear-gradient(to right, white, transparent);
+         }
+         
+         .partners-container::after {
+             right: 0;
+             background: linear-gradient(to left, white, transparent);
+         }
+         
+         .partners-reel {
+             display: flex;
+             animation: scroll-right 20s linear infinite;
+             width: max-content;
+             align-items: center;
+             gap: 40px;
+         }
+         
+         .partners-reel:hover {
+             animation-play-state: paused;
+         }
+         
+         .partner-item {
+             flex-shrink: 0;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             height: 80px;
+             min-width: 200px;
+         }
+         
+         .partner-logo {
+             max-height: 60px;
+             max-width: 180px;
+             width: auto;
+             height: auto;
+             object-fit: contain;
+             filter: grayscale(100%);
+             opacity: 0.7;
+             transition: all 0.3s ease;
+             display: block;
+         }
+         
+         .partner-logo:hover {
+             filter: grayscale(0%);
+             opacity: 1;
+             transform: scale(1.05);
+         }
+         
+         @keyframes scroll-right {
+             0% {
+                 transform: translateX(0);
+             }
+             100% {
+                 transform: translateX(-50%);
+             }
+         }
+         
+         /* Responsive Design for Partners */
+         @media (max-width: 768px) {
+             .partners-section {
+                 padding: 40px 0;
+             }
+             
+             .partners-section .section-title {
+                 font-size: 2rem;
+             }
+             
+             .partners-container::before,
+             .partners-container::after {
+                 width: 60px;
+             }
+             
+             .partners-reel {
+                 gap: 30px;
+                 animation-duration: 25s;
+             }
+             
+             .partner-item {
+                 min-width: 150px;
+             }
+             
+             .partner-logo {
+                 max-height: 50px;
+                 max-width: 140px;
+             }
+         }
+         
+         @media (max-width: 480px) {
+             .partners-container::before,
+             .partners-container::after {
+                 width: 40px;
+             }
+             
+             .partners-reel {
+                 gap: 20px;
+                 animation-duration: 20s;
+             }
+             
+             .partner-item {
+                 min-width: 120px;
+             }
+             
+             .partner-logo {
+                 max-height: 40px;
+                 max-width: 120px;
+             }
+         }
+
+         /* Contact Section */
+         .contact-section {
+             position: relative;
+             min-height: 30vh;
+             padding: 40px 0;
+             background: #f8f9fa;
+         }
 
         .contact-section .container {
             position: relative;
@@ -323,7 +589,88 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             color: var(--text-color);
             font-size: 1rem;
             line-height: 1.6;
-            margin-bottom: 0;
+            margin-bottom: 20px;
+        }
+        
+        /* Contact Info Details */
+        .contact-info-details {
+            margin-top: 20px;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .contact-info-item i {
+            color: var(--primary-color);
+            margin-right: 12px;
+            margin-top: 2px;
+            font-size: 16px;
+            width: 20px;
+            flex-shrink: 0;
+        }
+        
+        .contact-info-item span {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* Social Media in Contact Section */
+        .contact-info-item.social-handles {
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .contact-info-item.social-handles i.fas.fa-share-alt {
+            color: var(--primary-color);
+            margin-right: 12px;
+            margin-top: 2px;
+            font-size: 16px;
+            width: 20px;
+            flex-shrink: 0;
+        }
+        
+        .social-links-contact {
+            display: flex !important;
+            gap: 12px;
+            margin-left: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary-color) !important;
+            color: white !important;
+            border-radius: 50%;
+            text-decoration: none !important;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border: none;
+            outline: none;
+        }
+        
+        .social-link:hover {
+            background-color: #1e40af !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(30, 58, 138, 0.3);
+            color: white !important;
+        }
+        
+        .social-link i {
+            margin: 0 !important;
+            font-size: 16px;
+            color: white !important;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Contact Content (Right Side) */
@@ -775,7 +1122,7 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
         
         /* Footer */
         .footer {
-            background-color: var(--secondary-color);
+            background-color: #1e3a8a;
             color: var(--white);
             padding: 60px 0 30px;
         }
@@ -792,7 +1139,26 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
         }
         
         .footer a:hover {
-            color: var(--primary-color);
+            color: #ffd700;
+        }
+        
+        .footer .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .footer .social-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-2px);
         }
         
         .footer-bottom {
@@ -800,6 +1166,11 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             padding-top: 20px;
             margin-top: 40px;
             text-align: center;
+        }
+        
+        .footer-bottom p {
+            text-align: center !important;
+            margin: 0;
         }
         
         /* Animations */
@@ -864,10 +1235,10 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
         <div class="top-header">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-12">
                         <span><i class="fas fa-envelope me-2"></i>hello@bluechiplands.asia</span>
                     </div>
-                    <div class="col-md-6 text-end">
+                    <div class="col-md-6 col-12 text-md-end text-center">
                         <span><i class="fas fa-phone me-2"></i>(+94) 71 609 2918</span>
                     </div>
                 </div>
@@ -894,13 +1265,13 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
+                            <a class="nav-link" href="#top">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Properties</a>
+                            <a class="nav-link" href="#properties">Properties</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#contact">Contact</a>
@@ -930,7 +1301,7 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
     </header>
 
     <!-- Hero Section with Background Image Carousel -->
-    <section class="hero-section">
+    <section id="top" class="hero-section">
         <div class="hero-background-carousel">
             <div class="hero-bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=1080&fit=crop')"></div>
             <div class="hero-bg-slide" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=1080&fit=crop')"></div>
@@ -1040,7 +1411,7 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
     </section>
 
     <!-- Featured Properties Section -->
-    <section class="properties-section">
+    <section id="properties" class="properties-section">
         <div class="container">
             <div class="section-title animate-on-scroll">
                 <h2>Featured Properties</h2>
@@ -1135,8 +1506,140 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
+     <!-- Partners Section -->
+     <section class="partners-section">
+         <div class="container">
+             <div class="row">
+                 <div class="col-12 text-center mb-5">
+                     <h2 class="section-title">Our Trusted Partners</h2>
+                     <p class="section-subtitle">Working with Sri Lanka's leading institutions to serve you better</p>
+                 </div>
+             </div>
+             
+             <div class="partners-container">
+                 <div class="partners-reel">
+                    <!-- Banks -->
+                      <div class="partner-item">
+                         <img src="/public/images/uploads/Commercial_Bank_logo.svg" alt="Commercial Bank of Ceylon" class="partner-logo">
+                      </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Peoplesbanklk.png" alt="People's Bank" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/sampath.png" alt="Sampath Bank" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/DFCC_Bank_logo.svg" alt="DFCC Bank" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/NDB-Logo-study-2026.jpg" alt="National Development Bank" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/HNB_New_Logo.png" alt="Hatton National Bank" class="partner-logo">
+                    </div>
+                    
+                    <!-- Insurance Companies -->
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Ceylinco_Insurance_logo.png" alt="Ceylinco Insurance" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Allianz.svg" alt="Allianz Insurance" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Union_Assurance_logo.png" alt="Union Assurance" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Janashakthi_Insurance_logo.png" alt="Janashakthi Insurance" class="partner-logo">
+                    </div>
+                    
+                    <!-- Legal Partners -->
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Lanka_legal_logo.png" alt="Legal Partners" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/law-firm-associates.jpg" alt="Law Firm Associates" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/prime-group-logo.png" alt="Property Legal Services" class="partner-logo">
+                    </div>
+                    
+                    <!-- Construction Companies -->
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Access_Engineering_logo.jpg" alt="Access Engineering" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/magil_logo.png" alt="Magil" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/kedellla_logo.png" alt="Kedella" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/araliya_logo.png" alt="Araliya" class="partner-logo">
+                    </div>
+                     
+                    <!-- Duplicate for seamless loop -->
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Commercial_Bank_logo.svg" alt="Commercial Bank of Ceylon" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Peoplesbanklk.png" alt="People's Bank" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/sampath.png" alt="Sampath Bank" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/DFCC_Bank_logo.svg" alt="DFCC Bank" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/NDB-Logo-study-2026.jpg" alt="National Development Bank" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/HNB_New_Logo.png" alt="Hatton National Bank" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Ceylinco_Insurance_logo.png" alt="Ceylinco Insurance" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Allianz.svg" alt="Allianz Insurance" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Union_Assurance_logo.png" alt="Union Assurance" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Janashakthi_Insurance_logo.png" alt="Janashakthi Insurance" class="partner-logo">
+                    </div>
+                    
+                    <!-- Legal Partners -->
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Lanka_legal_logo.png" alt="Legal Partners" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/law-firm-associates.jpg" alt="Law Firm Associates" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/prime-group-logo.png" alt="Property Legal Services" class="partner-logo">
+                    </div>
+                    
+                    <!-- Construction Companies -->
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/Access_Engineering_logo.jpg" alt="Access Engineering" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/magil_logo.png" alt="Magil" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/kedellla_logo.png" alt="Kedella" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/public/images/uploads/araliya_logo.png" alt="Araliya" class="partner-logo">
+                    </div>
+                 </div>
+             </div>
+         </div>
+     </section>
+
+     <!-- Contact Section -->
+     <section class="contact-section" id="contact">
         <div class="container">
             <div class="row align-items-center">
                 <!-- Left Side - Logo and Tagline -->
@@ -1149,6 +1652,41 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                             <h2 class="contact-brand-name">Bluechip Real Estate (Pvt) Limited</h2>
                             <p class="contact-tagline sinhala-text">අපේ රටේ ඉඩමක් ගන්න හොඳම තැන</p>
                             <p class="contact-description">Your trusted partner in real estate excellence. We're here to help you find your perfect property and provide exceptional service every step of the way.</p>
+                            
+                            <!-- Contact Information -->
+                            <div class="contact-info-details">
+                                <div class="contact-info-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>(+94) 71 609 2918</span>
+                                </div>
+                                <div class="contact-info-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>hello@bluechiplands.asia</span>
+                                </div>
+                                <div class="contact-info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>World Trade Center, West Tower,<br>Level 37, Colombo 01, Sri Lanka</span>
+                                </div>
+                                
+                                <!-- Social Media -->
+                                <div class="contact-info-item social-handles">
+                                    <i class="fas fa-share-alt"></i>
+                                    <div class="social-links-contact">
+                                        <a href="https://www.facebook.com/p/Bluechip-Real-Estate-100091440704853/" target="_blank" class="social-link">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a href="#" target="_blank" class="social-link">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#" target="_blank" class="social-link">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                        <a href="https://wa.me/94716092918" target="_blank" class="social-link">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1199,15 +1737,15 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <h5>About Bluechip Realty</h5>
+                    <h5>About Bluechip Real Estate</h5>
                     <p>Your trusted partner in finding premium properties across Sri Lanka. We specialize in luxury apartments, houses, and commercial spaces.</p>
                 </div>
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="/">Home</a></li>
+                        <li><a href="#top">Home</a></li>
                         <li><a href="#about">About</a></li>
-                        <li><a href="/">Properties</a></li>
+                        <li><a href="#properties">Properties</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -1215,20 +1753,20 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                     <h5>Contact Info</h5>
                     <p><i class="fas fa-phone me-2"></i>(+94) 71 609 2918</p>
                     <p><i class="fas fa-envelope me-2"></i>hello@bluechiplands.asia</p>
-                    <p><i class="fas fa-map-marker-alt me-2"></i>World Trade Center, West Tower, Level 37, Colombo 01 Sri Lanka</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i><span>World Trade Center, West Tower,<br>Level 37, Colombo 01, Sri Lanka</span></p>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h5>Follow Us</h5>
                     <div class="social-links">
-                        <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.facebook.com/p/Bluechip-Real-Estate-100091440704853/" class="me-3"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/94716092918" class="me-3"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Bluechip Realty. All rights reserved.</p>
+                <p>&copy; 2025 Bluechip Real Estate. All rights reserved.</p>
             </div>
         </div>
     </footer>
