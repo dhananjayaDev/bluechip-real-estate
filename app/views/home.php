@@ -21,6 +21,8 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Sinhala Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css">
     <!-- Animate CSS -->
@@ -48,6 +50,11 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             color: var(--text-color);
         }
         
+        .sinhala-text {
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            font-weight: 400;
+        }
+        
         /* Header Styles */
         .top-header {
             background-color: var(--secondary-color);
@@ -63,9 +70,361 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
         }
         
         .navbar-brand {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--primary-color) !important;
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+        
+        .navbar-brand .logo-container {
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+        
+        .navbar-brand .company-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 15px;
+            height: 50px;
+        }
+        
+        .navbar-brand .company-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.2;
+            margin: 0;
+        }
+        
+        .navbar-brand .tagline {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-color);
+            line-height: 1.2;
+            margin: 0;
+            margin-top: 2px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #1e3a8a !important;
+            border-color: #1e3a8a !important;
+            color: white !important;
+        }
+        
+        .dropdown-toggle::after {
+            margin-left: 8px;
+        }
+        
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #1e3a8a;
+            color: white;
+        }
+        
+        .dropdown-item i {
+            color: #1e3a8a;
+        }
+        
+        .dropdown-item:hover i {
+            color: white;
+        }
+        
+        .language-dropdown .dropdown-toggle {
+            color: var(--secondary-color) !important;
+            font-weight: 600;
+            margin: 0 10px;
+        }
+        
+        .language-dropdown .dropdown-toggle:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        .language-dropdown .dropdown-toggle::after {
+            margin-left: 5px;
+        }
+        
+        .nav-item.dropdown .nav-link {
+            color: #1e3a8a !important;
+            font-weight: 700;
+        }
+        
+        .top-header {
+            background-color: #1e3a8a;
+        }
+        
+        .top-header span {
+            color: white;
+            font-weight: 600;
+        }
+        
+        .top-header i {
+            color: white;
+        }
+        
+        .footer .contact-info {
+            background-color: #1e3a8a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .footer .contact-info p {
+            color: white;
+        }
+        
+        .footer .contact-info i {
+            color: white;
+        }
+        
+        /* About Section */
+        .about-section {
+            position: relative;
+            min-height: 30vh;
+            padding: 40px 0;
+            background-image: url('https://images.pexels.com/photos/18599747/pexels-photo-18599747.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+        }
+        
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(30, 58, 138, 0.85);
+            z-index: 1;
+        }
+        
+        .about-section .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .about-content {
+            background: transparent;
+            padding: 0;
+        }
+
+        .about-text h2 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-text p {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-text .highlight {
+            color: #ffd700;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .ceo-signature {
+            color: #ffd700 !important;
+            font-size: 1.2rem !important;
+            font-weight: 600 !important;
+            font-style: italic !important;
+            margin-top: 25px !important;
+            margin-bottom: 0 !important;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+        }
+        
+        .ceo-photo {
+            text-align: center;
+        }
+        
+        .ceo-image {
+            width: 100%;
+            max-width: 400px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            position: relative;
+            min-height: 30vh;
+            padding: 40px 0;
+            background: #f8f9fa;
+        }
+
+        .contact-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Contact Brand (Left Side) */
+        .contact-brand {
+            padding-right: 30px;
+        }
+
+        .contact-logo-container {
+            margin-bottom: 20px;
+        }
+
+        .contact-logo {
+            height: 120px;
+            width: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-brand-info {
+            margin-left: 0;
+        }
+
+        .contact-brand-name {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .contact-tagline {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .contact-description {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* Contact Content (Right Side) */
+        .contact-content {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .contact-content h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .contact-content p {
+            color: var(--text-color);
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+        }
+
+        .contact-form textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .contact-form .btn-submit {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .contact-form .btn-submit:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 40px 0;
+            }
+            
+            .contact-brand {
+                padding-right: 0;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            
+            .contact-logo {
+                height: 80px;
+            }
+            
+            .contact-brand-name {
+                font-size: 1.5rem;
+            }
+            
+            .contact-content {
+                padding: 30px 20px;
+            }
         }
         
         .navbar-nav .nav-link {
@@ -506,10 +865,10 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <span><i class="fas fa-envelope me-2"></i>admin@bluechiprealty.com</span>
+                        <span><i class="fas fa-envelope me-2"></i>hello@bluechiplands.asia</span>
                     </div>
                     <div class="col-md-6 text-end">
-                        <span><i class="fas fa-phone me-2"></i>+94 11 234 5678</span>
+                        <span><i class="fas fa-phone me-2"></i>(+94) 71 609 2918</span>
                     </div>
                 </div>
             </div>
@@ -519,7 +878,13 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
         <nav class="navbar navbar-expand-lg main-header">
             <div class="container">
                 <a class="navbar-brand" href="/" style="color: #1e3a8a !important;">
-                    <i class="fas fa-building me-2"></i>Bluechip Realty
+                    <div class="logo-container">
+                        <img src="/public/images/uploads/logo.jpeg" alt="Bluechip Real Estate Logo" style="height: 50px;">
+                        <div class="company-info">
+                            <div class="company-name">Bluechip Real Estate (Pvt) Limited</div>
+                            <div class="tagline sinhala-text">අපේ රටේ ඉඩමක් ගන්න හොඳම තැන</div>
+                        </div>
+                    </div>
                 </a>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -527,7 +892,7 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                 </button>
                 
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home</a>
                         </li>
@@ -540,16 +905,25 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                         <li class="nav-item">
                             <a class="nav-link" href="#contact">Contact</a>
                         </li>
+                        <li class="nav-item dropdown language-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-globe me-1"></i>EN
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')"><i class="fas fa-flag-usa me-2"></i>English</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('si')"><i class="fas fa-flag me-2"></i>සිංහල</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="joinDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Join
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                                <li><a class="dropdown-item" href="/login"><i class="fas fa-sign-in-alt me-2"></i>Login</a></li>
+                                <li><a class="dropdown-item" href="/register"><i class="fas fa-user-plus me-2"></i>Register</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                    
-                    <div class="d-flex">
-                        <a href="/login" class="btn btn-outline-primary me-2">
-                            <i class="fas fa-sign-in-alt me-1"></i>Login
-                        </a>
-                        <a href="/register" class="btn btn-primary">
-                            <i class="fas fa-user-plus me-1"></i>Register
-                        </a>
-                    </div>
                 </div>
             </div>
         </nav>
@@ -558,7 +932,7 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
     <!-- Hero Section with Background Image Carousel -->
     <section class="hero-section">
         <div class="hero-background-carousel">
-            <div class="hero-bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&h=1080&fit=crop')"></div>
+            <div class="hero-bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=1080&fit=crop')"></div>
             <div class="hero-bg-slide" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=1080&fit=crop')"></div>
             <div class="hero-bg-slide" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&h=1080&fit=crop')"></div>
         </div>
@@ -678,7 +1052,25 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                     <?php foreach ($featuredProperties as $property): ?>
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="property-card animate-on-scroll">
-                                <div class="property-image" style="background-image: url('<?= !empty($property['images']) ? explode(',', $property['images'])[0] : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop' ?>')">
+                                <?php
+                                // Unique images for each property - using property ID for variety
+                                $allImages = [
+                                    'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop',
+                                    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop',
+                                    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop',
+                                    'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop',
+                                    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop',
+                                    'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop',
+                                    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=300&fit=crop',
+                                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop'
+                                ];
+                                
+                                // Use property ID to select a unique image
+                                $imageIndex = ($property['id'] - 1) % count($allImages);
+                                $defaultImage = $allImages[$imageIndex];
+                                $imageUrl = !empty($property['images']) ? explode(',', $property['images'])[0] : $defaultImage;
+                                ?>
+                                <div class="property-image" style="background-image: url('<?= $imageUrl ?>')">
                                     <div class="property-price">Rs. <?= number_format($property['price']) ?></div>
                                 </div>
                                 <div class="property-content">
@@ -698,7 +1090,7 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                                         </div>
                                         <div class="feature">
                                             <i class="fas fa-car"></i>
-                                            <span><?= !empty($property['parking']) ? $property['parking'] : ($property['floors'] ?? 'N/A') ?></span>
+                                            <span><?= !empty($property['parking']) ? explode(',', $property['parking'])[0] : 'N/A' ?></span>
                                         </div>
                                         <div class="feature">
                                             <i class="fas fa-ruler-combined"></i>
@@ -714,6 +1106,75 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                         <p>No featured properties available at the moment.</p>
                     </div>
                 <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h2>Bluechip Real Estate</h2>
+                            <p><span class="highlight">Bluechip Real Estate (Pvt) Limited</span> is recognized as Sri Lanka's premier real estate company, established with the vision of making property ownership accessible and rewarding for everyone.</p>
+                            
+                            <p>Over a decade of experience in the Sri Lankan real estate market has built a reputation for <span class="highlight">excellence, integrity, and customer satisfaction</span>. The company is committed to maintaining the highest standards of professionalism while ensuring every client's property goals are achieved.</p>
+                            
+                            <p class="ceo-signature">CEO - Uditha Bandara</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ceo-photo">
+                        <img src="/public/images/uploads/CEO.png" alt="CEO of Bluechip Real Estate" class="ceo-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left Side - Logo and Tagline -->
+                <div class="col-lg-7 col-md-6">
+                    <div class="contact-brand">
+                        <div class="contact-logo-container">
+                            <img src="/public/images/uploads/logo.jpeg" alt="Bluechip Real Estate Logo" class="contact-logo">
+                        </div>
+                        <div class="contact-brand-info">
+                            <h2 class="contact-brand-name">Bluechip Real Estate (Pvt) Limited</h2>
+                            <p class="contact-tagline sinhala-text">අපේ රටේ ඉඩමක් ගන්න හොඳම තැන</p>
+                            <p class="contact-description">Your trusted partner in real estate excellence. We're here to help you find your perfect property and provide exceptional service every step of the way.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Contact Form -->
+                <div class="col-lg-5 col-md-6">
+                    <div class="contact-content">
+                        <h3>Get In Touch</h3>
+                        <p>Send us a message and we'll get back to you soon.</p>
+                        <form class="contact-form" method="POST" action="/contact">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="Tell us about your property needs..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">Send Message</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -752,9 +1213,9 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h5>Contact Info</h5>
-                    <p><i class="fas fa-phone me-2"></i>+94 11 234 5678</p>
-                    <p><i class="fas fa-envelope me-2"></i>admin@bluechiprealty.com</p>
-                    <p><i class="fas fa-map-marker-alt me-2"></i>123 Independence Avenue, Colombo 07</p>
+                    <p><i class="fas fa-phone me-2"></i>(+94) 71 609 2918</p>
+                    <p><i class="fas fa-envelope me-2"></i>hello@bluechiplands.asia</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>World Trade Center, West Tower, Level 37, Colombo 01 Sri Lanka</p>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h5>Follow Us</h5>
@@ -777,6 +1238,41 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // Language Change Functionality
+        function changeLanguage(lang) {
+            const languageToggle = document.getElementById('languageDropdown');
+            const currentLang = lang === 'en' ? 'EN' : 'සිංහල';
+            
+            // Update the dropdown button text
+            languageToggle.innerHTML = `<i class="fas fa-globe me-1"></i>${currentLang}`;
+            
+            // Store language preference in localStorage
+            localStorage.setItem('selectedLanguage', lang);
+            
+            // Show a simple alert for now (can be enhanced later)
+            if (lang === 'en') {
+                alert('Language changed to English');
+            } else {
+                alert('භාෂාව සිංහලට වෙනස් කරන ලදී');
+            }
+            
+            // Close the dropdown
+            const dropdown = bootstrap.Dropdown.getInstance(languageToggle);
+            if (dropdown) {
+                dropdown.hide();
+            }
+        }
+        
+        // Load saved language preference on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                const languageToggle = document.getElementById('languageDropdown');
+                const currentLang = savedLang === 'en' ? 'EN' : 'සිංහල';
+                languageToggle.innerHTML = `<i class="fas fa-globe me-1"></i>${currentLang}`;
+            }
+        });
+        
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
