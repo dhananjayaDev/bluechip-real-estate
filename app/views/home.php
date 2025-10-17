@@ -1120,9 +1120,131 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             margin-bottom: 30px;
         }
         
+        /* Testimonials Section */
+        .testimonials-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 80px 0;
+        }
+        
+        .testimonials-section .section-title {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .testimonials-section .section-subtitle {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .testimonial-content {
+            flex: 1;
+            margin-bottom: 25px;
+        }
+        
+        .stars {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .stars i {
+            margin-right: 2px;
+        }
+        
+        .testimonial-text {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.6;
+            font-style: italic;
+            margin: 0;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .author-avatar {
+            margin-right: 15px;
+        }
+        
+        .avatar-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+        
+        .author-name {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+        }
+        
+        .author-title {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        /* Responsive Design for Testimonials */
+        @media (max-width: 768px) {
+            .testimonials-section {
+                padding: 60px 0;
+            }
+            
+            .testimonials-section .section-title {
+                font-size: 2rem;
+            }
+            
+            .testimonial-card {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .testimonials-section {
+                padding: 40px 0;
+            }
+            
+            .testimonials-section .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .testimonial-card {
+                padding: 20px;
+            }
+            
+            .testimonial-text {
+                font-size: 0.95rem;
+            }
+        }
+
         /* Footer */
         .footer {
-            background-color: #1e3a8a;
+            background: var(--primary-color);
             color: var(--white);
             padding: 60px 0 30px;
         }
@@ -1638,6 +1760,92 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
          </div>
      </section>
 
+     <!-- Testimonials Section -->
+     <section class="testimonials-section">
+         <div class="container">
+             <div class="row">
+                 <div class="col-12 text-center mb-5">
+                     <h2 class="section-title">What Our Clients Say</h2>
+                     <p class="section-subtitle">Hear from satisfied customers who found their dream homes with us</p>
+                 </div>
+             </div>
+             
+             <div class="row">
+                 <div class="col-lg-4 col-md-6 mb-4">
+                     <div class="testimonial-card">
+                         <div class="testimonial-content">
+                             <div class="stars">
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                             </div>
+                             <p class="testimonial-text">"Bluechip Real Estate made our property search effortless. Their team's expertise and dedication helped us find the perfect home in Colombo. Highly recommended!"</p>
+                         </div>
+                         <div class="testimonial-author">
+                             <div class="author-avatar">
+                                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Client" class="avatar-img">
+                             </div>
+                             <div class="author-info">
+                                 <h5 class="author-name">Rajesh Perera</h5>
+                                 <p class="author-title">Business Owner</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 
+                 <div class="col-lg-4 col-md-6 mb-4">
+                     <div class="testimonial-card">
+                         <div class="testimonial-content">
+                             <div class="stars">
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                             </div>
+                             <p class="testimonial-text">"Professional service from start to finish. The team understood our requirements and delivered exactly what we were looking for. Thank you Bluechip!"</p>
+                         </div>
+                         <div class="testimonial-author">
+                             <div class="author-avatar">
+                                 <img src="https://images.pexels.com/photos/14587417/pexels-photo-14587417.jpeg?w=100&h=100&fit=crop&crop=face" alt="Client" class="avatar-img">
+                             </div>
+                             <div class="author-info">
+                                 <h5 class="author-name">Priya Fernando</h5>
+                                 <p class="author-title">Marketing Manager</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 
+                 <div class="col-lg-4 col-md-6 mb-4">
+                     <div class="testimonial-card">
+                         <div class="testimonial-content">
+                             <div class="stars">
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                                 <i class="fas fa-star"></i>
+                             </div>
+                             <p class="testimonial-text">"Outstanding customer service and attention to detail. They guided us through every step of the buying process. We couldn't be happier with our new home!"</p>
+                         </div>
+                         <div class="testimonial-author">
+                             <div class="author-avatar">
+                                 <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Client" class="avatar-img">
+                             </div>
+                             <div class="author-info">
+                                 <h5 class="author-name">David Silva</h5>
+                                 <p class="author-title">Engineer</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </section>
+
      <!-- Contact Section -->
      <section class="contact-section" id="contact">
         <div class="container">
@@ -1892,7 +2100,7 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             
             // Function to start auto-play
             function startAutoPlay() {
-                autoPlayInterval = setInterval(nextSlide, 5000); // 5 seconds
+                autoPlayInterval = setInterval(nextSlide, 7000); // 7 seconds
             }
             
             // Function to stop auto-play
