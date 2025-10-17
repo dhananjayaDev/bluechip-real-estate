@@ -43,6 +43,11 @@ class PropertyController extends Controller {
         }
     }
     
+    public function all() {
+        // Show all properties page
+        $this->view('all_properties', []);
+    }
+    
     public function show($id) {
         $property = $this->propertyModel->getWithImages($id);
         

@@ -1633,20 +1633,20 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#top">Home</a>
+                            <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#about">About</a>
+                            <a class="nav-link" href="/#about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#properties">Properties</a>
+                            <a class="nav-link" href="/properties">Properties</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contact</a>
+                            <a class="nav-link" href="/#contact">Contact</a>
                         </li>
                         <li class="nav-item dropdown language-dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-globe me-1"></i>EN
+                                <i class="fas fa-globe me-1"></i><span id="currentLanguage">EN</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                                 <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')"><i class="fas fa-flag-usa me-2"></i>English</a></li>

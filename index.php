@@ -34,6 +34,7 @@ require_once APP_PATH . '/config/config.php';
 // Router
 $router = new Router();
 $router->addRoute('GET', '/', 'PropertyController@index');
+$router->addRoute('GET', '/properties', 'PropertyController@all');
 $router->addRoute('GET', '/property/{id}', 'PropertyController@show');
 $router->addRoute('POST', '/property/{id}/request', 'PropertyController@requestDetails');
 $router->addRoute('GET', '/login', 'AuthController@login');
