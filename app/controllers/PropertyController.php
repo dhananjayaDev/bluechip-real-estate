@@ -39,7 +39,9 @@ class PropertyController extends Controller {
             ]);
         } else {
             // Show home page
-            $this->view('home', []);
+            $this->view('home', [
+                'csrfToken' => $this->generateCSRF()
+            ]);
         }
     }
     
@@ -80,6 +82,89 @@ class PropertyController extends Controller {
             'breadcrumbs' => $breadcrumbs,
             'csrfToken' => $this->generateCSRF()
         ]);
+    }
+
+    // Admin-only detailed view with admin footer/header
+    public function adminShow($id) {
+        if (!$this->isLoggedIn() || !$this->isAdmin()) {
+            $this->redirect('/admin/login');
+        }
+        $property = $this->propertyModel->getWithImages($id);
+        if (!$property) {
+            http_response_code(404);
+            $this->view('errors/404');
+            return;
+        }
+        $this->view('admin/property_detail', [
+            'property' => $property,
+            'csrfToken' => $this->generateCSRF()
+        ]);
+    }
+
+    public function submitRequest($id) {
+        // Validate CSRF token
+        if (!$this->validateCSRF($_POST['csrf_token'] ?? '')) {
+            $this->jsonResponse(['success' => false, 'message' => 'Invalid request']);
+            return;
+        }
+        
+        // Validate required fields
+        $name = trim($_POST['name'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $message = trim($_POST['message'] ?? '');
+        
+        if (empty($name) || empty($email) || empty($message)) {
+            $this->jsonResponse(['success' => false, 'message' => 'Please fill in all required fields']);
+            return;
+        }
+        
+        // Validate email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->jsonResponse(['success' => false, 'message' => 'Please enter a valid email address']);
+            return;
+        }
+        
+        // Check if property exists
+        $property = $this->propertyModel->getWithImages($id);
+        if (!$property) {
+            $this->jsonResponse(['success' => false, 'message' => 'Property not found']);
+            return;
+        }
+        
+        // Prepare request data
+        $requestData = [
+            'property_id' => $id,
+            'user_id' => $_SESSION['user_id'] ?? null, // null for guest requests
+            'name' => $name,
+            'email' => $email,
+            'phone' => trim($_POST['phone'] ?? ''),
+            'message' => $message,
+            'contact_method' => $_POST['contact_method'] ?? 'email',
+            'status' => 'pending'
+        ];
+        
+        // Create request
+        $requestModel = new UserRequest();
+        $success = $requestModel->createRequest($requestData);
+        
+        if ($success) {
+            $this->jsonResponse([
+                'success' => true, 
+                'message' => 'Your request has been submitted successfully. We\'ll get back to you soon!'
+            ]);
+        } else {
+            $this->jsonResponse(['success' => false, 'message' => 'Failed to submit request. Please try again.']);
+        }
+    }
+    
+    private function jsonResponse($data) {
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
+    }
+
+    private function isAdmin() {
+        return isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
     }
     
     public function requestDetails($id) {

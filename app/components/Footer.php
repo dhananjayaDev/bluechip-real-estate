@@ -5,6 +5,23 @@ require_once 'Component.php';
 class Footer extends Component {
     
     public function render() {
+        $activePage = $this->getData('activePage', '');
+        $adminPages = ['dashboard', 'admin-properties', 'users', 'requests', 'admin-property-detail'];
+        
+        // Show simplified footer for admin pages
+        if (in_array($activePage, $adminPages)) {
+            return "
+            <footer class=\"footer admin-footer\">
+                <div class=\"container\">
+                    <div class=\"footer-bottom\">
+                        <p>&copy; 2025 Bluechip Real Estate. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
+            ";
+        }
+        
+        // Full footer for regular pages
         $aboutText = $this->getData('aboutText', 'Bluechip Real Estate (PVT) Limited has been established with the vision To deliver the highest value in real estate industry through innovation and integrity.');
         $phone = $this->getData('phone', '(+94) 71 609 2918');
         $email = $this->getData('email', 'hello@bluechiplands.asia');
@@ -24,7 +41,7 @@ class Footer extends Component {
                     <div class=\"col-lg-2 col-md-6 mb-4\">
                         <h5>Quick Links</h5>
                         <ul class=\"list-unstyled\">
-                            <li><a href=\"/\">Home</a></li>
+                            <li><a href=\"/#top\">Home</a></li>
                             <li>" . $this->renderFooterLink('about', '/#about', 'About', $disabledNavItems) . "</li>
                             <li><a href=\"/properties\">Properties</a></li>
                             <li>" . $this->renderFooterLink('contact', '/#contact', 'Contact', $disabledNavItems) . "</li>
@@ -68,6 +85,22 @@ class Footer extends Component {
             background: var(--primary-color);
             color: var(--white);
             padding: 60px 0 30px;
+        }
+        
+        .admin-footer {
+            padding: 20px 0;
+            background: #f8f9fa;
+            color: #666;
+        }
+        
+        .admin-footer .footer-bottom {
+            text-align: center;
+            margin: 0;
+        }
+        
+        .admin-footer p {
+            margin: 0;
+            font-size: 0.9rem;
         }
         
         .footer h5 {

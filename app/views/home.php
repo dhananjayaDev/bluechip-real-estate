@@ -44,6 +44,10 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Open Sans', sans-serif;
             line-height: 1.6;
@@ -2647,6 +2651,43 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                     loginModal.show();
                 });
             }
+        });
+
+        // Ensure navbar home link scrolls to top
+        document.addEventListener('DOMContentLoaded', function() {
+            // Try multiple selectors to find the navbar home link
+            const navbarHomeLink = document.querySelector('.navbar-nav .home-link') ||
+                                 document.querySelector('.navbar-nav .nav-link[href="/#top"]') || 
+                                 document.querySelector('.navbar-nav .nav-link[href*="#top"]') ||
+                                 document.querySelector('.navbar-nav a[href="/#top"]') ||
+                                 document.querySelector('.navbar-nav a[href*="#top"]');
+            
+            if (navbarHomeLink) {
+                navbarHomeLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const topElement = document.getElementById('top');
+                    if (topElement) {
+                        topElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            }
+            
+            // Also add a general handler for any link with #top
+            document.addEventListener('click', function(e) {
+                if (e.target.matches('a[href*="#top"]') && e.target.closest('.navbar-nav')) {
+                    e.preventDefault();
+                    const topElement = document.getElementById('top');
+                    if (topElement) {
+                        topElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
         });
     </script>
 </body>

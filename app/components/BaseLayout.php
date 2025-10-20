@@ -20,14 +20,21 @@ class BaseLayout extends Component {
         // Initialize components
         $header = new Header($this->data);
         $navbar = new Navbar(['activePage' => $activePage] + $this->data);
-        $searchSection = new SearchSection($this->data);
-        $footer = new Footer($this->data);
+        
+        // Only include search section for properties management page and non-admin pages
+        $searchSection = null;
+        $searchAssets = ['html' => '', 'css' => '', 'js' => ''];
+        if ($activePage === 'properties' || (!in_array($activePage, ['dashboard', 'admin-properties', 'users', 'requests', 'admin-property-detail', 'property-detail']) && !str_contains($activePage, 'property'))) {
+            $searchSection = new SearchSection($this->data);
+            $searchAssets = $searchSection->renderWithAssets();
+        }
+        
+        $footer = new Footer(['activePage' => $activePage] + $this->data);
         $modal = $includeModals ? new Modal(['csrfToken' => $csrfToken]) : null;
         
         // Get component assets
         $headerAssets = $header->renderWithAssets();
         $navbarAssets = $navbar->renderWithAssets();
-        $searchAssets = $searchSection->renderWithAssets();
         $footerAssets = $footer->renderWithAssets();
         $modalAssets = $modal ? $modal->renderWithAssets() : ['html' => '', 'css' => '', 'js' => ''];
         

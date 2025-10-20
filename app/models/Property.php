@@ -12,7 +12,8 @@ class Property extends Model {
     }
     
     public function getImages($propertyId) {
-        $stmt = $this->db->prepare("SELECT * FROM property_images WHERE property_id = ? ORDER BY sort_order, id");
+        // Always return primary image first
+        $stmt = $this->db->prepare("SELECT * FROM property_images WHERE property_id = ? ORDER BY is_primary DESC, sort_order, id");
         $stmt->execute([$propertyId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -27,6 +28,7 @@ class Property extends Model {
         $property = $this->find($propertyId);
         if (!$property) return [];
         
+        $limit = (int)$limit; // Ensure it's an integer
         $stmt = $this->db->prepare("
             SELECT p.*, pi.image_path, pi.thumbnail_path 
             FROM properties p 
@@ -37,7 +39,7 @@ class Property extends Model {
             ORDER BY 
                 CASE WHEN p.city = ? THEN 1 ELSE 2 END,
                 ABS(p.price - ?)
-            LIMIT ?
+            LIMIT {$limit}
         ");
         
         $priceRange = $property['price'] * 0.3; // 30% price range
@@ -48,8 +50,7 @@ class Property extends Model {
             $property['price'], 
             $priceRange,
             $property['city'],
-            $property['price'],
-            $limit
+            $property['price']
         ]);
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -58,7 +59,7 @@ class Property extends Model {
     public function search($filters = [], $page = 1, $limit = ITEMS_PER_PAGE) {
         $offset = ($page - 1) * $limit;
         $sql = "SELECT p.*, 
-                       GROUP_CONCAT(pi.image_path ORDER BY pi.id ASC) as images,
+                       GROUP_CONCAT(pi.image_path ORDER BY (CASE WHEN pi.is_primary = 1 THEN 0 ELSE 1 END), pi.id ASC) as images,
                        GROUP_CONCAT(CASE WHEN pf.feature_name = 'Parking' THEN pf.feature_value END) as parking
                 FROM properties p 
                 LEFT JOIN property_images pi ON p.id = pi.property_id
@@ -92,6 +93,11 @@ class Property extends Model {
             $params[] = $filters['bedrooms'];
         }
         
+        if (!empty($filters['status'])) {
+            $sql .= " AND p.status = ?";
+            $params[] = $filters['status'];
+        }
+        
         if (!empty($filters['search'])) {
             $sql .= " AND (p.title LIKE ? OR p.description LIKE ? OR p.location LIKE ?)";
             $searchTerm = '%' . $filters['search'] . '%';
@@ -108,46 +114,77 @@ class Property extends Model {
     }
     
     public function getCount($filters = []) {
-        $sql = "SELECT COUNT(*) as total FROM properties p WHERE p.status = 'available'";
+        $sql = "SELECT COUNT(*) as total FROM properties p";
         $params = [];
+        $whereClause = [];
+        
+        // For admin, show all properties regardless of status
+        if (!isset($filters['admin']) || !$filters['admin']) {
+            $whereClause[] = "p.status = 'available'";
+        }
         
         if (!empty($filters['city'])) {
-            $sql .= " AND p.city = ?";
+            $whereClause[] = "p.city = ?";
             $params[] = $filters['city'];
         }
         
         if (!empty($filters['property_type'])) {
-            $sql .= " AND p.property_type = ?";
+            $whereClause[] = "p.property_type = ?";
             $params[] = $filters['property_type'];
         }
         
         if (!empty($filters['min_price'])) {
-            $sql .= " AND p.price >= ?";
+            $whereClause[] = "p.price >= ?";
             $params[] = $filters['min_price'];
         }
         
         if (!empty($filters['max_price'])) {
-            $sql .= " AND p.price <= ?";
+            $whereClause[] = "p.price <= ?";
             $params[] = $filters['max_price'];
         }
         
         if (!empty($filters['bedrooms'])) {
-            $sql .= " AND p.bedrooms >= ?";
+            $whereClause[] = "p.bedrooms >= ?";
             $params[] = $filters['bedrooms'];
         }
         
+        if (!empty($filters['bathrooms'])) {
+            $whereClause[] = "p.bathrooms >= ?";
+            $params[] = $filters['bathrooms'];
+        }
+        
+        if (!empty($filters['status'])) {
+            $whereClause[] = "p.status = ?";
+            $params[] = $filters['status'];
+        }
+        
+        if (!empty($filters['featured'])) {
+            $whereClause[] = "p.featured = ?";
+            $params[] = $filters['featured'];
+        }
+        
         if (!empty($filters['search'])) {
-            $sql .= " AND (p.title LIKE ? OR p.description LIKE ? OR p.location LIKE ?)";
+            $whereClause[] = "(p.title LIKE ? OR p.description LIKE ? OR p.location LIKE ?)";
             $searchTerm = '%' . $filters['search'] . '%';
             $params[] = $searchTerm;
             $params[] = $searchTerm;
             $params[] = $searchTerm;
         }
         
+        if (!empty($whereClause)) {
+            $sql .= " WHERE " . implode(" AND ", $whereClause);
+        }
+        
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
+    }
+
+    public function findByPropertyId($propertyId) {
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE property_id = ?");
+        $stmt->execute([$propertyId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
     public function addImage($propertyId, $imagePath, $thumbnailPath = null, $altText = '', $isPrimary = false) {
@@ -172,5 +209,43 @@ class Property extends Model {
         
         return $this->db->prepare("INSERT INTO property_features (property_id, feature_name, feature_value) VALUES (?, ?, ?)")
             ->execute([$data['property_id'], $data['feature_name'], $data['feature_value']]);
+    }
+
+    public function deleteFeatures($propertyId) {
+        $stmt = $this->db->prepare("DELETE FROM property_features WHERE property_id = ?");
+        return $stmt->execute([$propertyId]);
+    }
+    
+    public function updateImagePrimary($imageId, $isPrimary) {
+        $stmt = $this->db->prepare("UPDATE property_images SET is_primary = ? WHERE id = ?");
+        return $stmt->execute([$isPrimary, $imageId]);
+    }
+    
+    public function removeImagePrimary($propertyId) {
+        $stmt = $this->db->prepare("UPDATE property_images SET is_primary = 0 WHERE property_id = ?");
+        return $stmt->execute([$propertyId]);
+    }
+    
+    public function getPrimaryImage($propertyId) {
+        $stmt = $this->db->prepare("SELECT * FROM property_images WHERE property_id = ? AND is_primary = 1 LIMIT 1");
+        $stmt->execute([$propertyId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function updateImagePath($imageId, $imagePath, $thumbnailPath = null, $altText = null) {
+        $sql = "UPDATE property_images SET image_path = ?, thumbnail_path = COALESCE(?, thumbnail_path), alt_text = COALESCE(?, alt_text) WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$imagePath, $thumbnailPath, $altText, $imageId]);
+    }
+
+    public function deleteImage($imageId) {
+        $stmt = $this->db->prepare("DELETE FROM property_images WHERE id = ?");
+        return $stmt->execute([$imageId]);
+    }
+    
+    public function getImageById($imageId) {
+        $stmt = $this->db->prepare("SELECT * FROM property_images WHERE id = ?");
+        $stmt->execute([$imageId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

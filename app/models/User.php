@@ -9,6 +9,12 @@ class User extends Model {
     }
     
     public function authenticate($email, $password) {
+        // Check if user is banned first
+        $bannedUserModel = new BannedUser();
+        if ($bannedUserModel->isBanned($email)) {
+            return false; // User is banned, cannot authenticate
+        }
+        
         $user = $this->findByEmail($email);
         if ($user && password_verify($password, $user['password'])) {
             return $user;
@@ -56,5 +62,51 @@ class User extends Model {
         $stmt->execute([$userId, $propertyId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['count'] > 0;
+    }
+    
+    public function getAll($page = 1, $limit = 10, $conditions = []) {
+        $offset = ($page - 1) * $limit;
+        $limit = (int)$limit; // Ensure it's an integer
+        $offset = (int)$offset; // Ensure it's an integer
+        
+        $sql = "SELECT u.*, COUNT(ur.id) as request_count FROM {$this->table} u LEFT JOIN user_requests ur ON u.id = ur.user_id";
+        $params = [];
+        $whereClause = [];
+        
+        if (!empty($conditions)) {
+            foreach ($conditions as $key => $value) {
+                $whereClause[] = "u.{$key} = ?";
+                $params[] = $value;
+            }
+        }
+        
+        if (!empty($whereClause)) {
+            $sql .= " WHERE " . implode(" AND ", $whereClause);
+        }
+        
+        $sql .= " GROUP BY u.id ORDER BY u.created_at DESC LIMIT {$limit} OFFSET {$offset}";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function getCount($conditions = []) {
+        $sql = "SELECT COUNT(*) as count FROM {$this->table}";
+        $params = [];
+        
+        if (!empty($conditions)) {
+            $whereClause = [];
+            foreach ($conditions as $key => $value) {
+                $whereClause[] = "{$key} = ?";
+                $params[] = $value;
+            }
+            $sql .= " WHERE " . implode(" AND ", $whereClause);
+        }
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'];
     }
 }

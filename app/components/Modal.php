@@ -375,6 +375,7 @@ class Modal extends Component {
     
     protected function renderJS() {
         return "
+        <script>
         // Modal functionality
         // Clean up any lingering backdrop when all modals are closed
         const loginModal = document.getElementById('loginModal');
@@ -500,6 +501,7 @@ class Modal extends Component {
                 });
             });
         }
+        </script>
         ";
     }
 }

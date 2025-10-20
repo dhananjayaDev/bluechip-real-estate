@@ -1,0 +1,13 @@
+Starting index.php
+Functions loaded
+Config loaded
+Router: Method=GET, URI=/
+Router: Found matching route: /
+PropertyController::index() called
+Showing home page
+Controller::view() called with view: home
+Loading view: D:\projects\php-test\real-estate-01/app/views/home.php
+home.php started
+View loaded successfully
+Home view called
+Router dispatched
