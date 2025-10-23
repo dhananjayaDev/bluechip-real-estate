@@ -28,6 +28,7 @@ class BaseLayout extends Component {
             $searchData = $this->data;
             if ($activePage === 'properties') {
                 $searchData['targetUrl'] = '/properties';
+                $searchData['enableAjax'] = true; // Enable AJAX search for properties page
             } else {
                 $searchData['targetUrl'] = '/properties'; // Home page search now goes to /properties
             }

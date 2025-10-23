@@ -255,22 +255,7 @@ $pageContent .= '
 </style>
 ';
 
-// Add page-specific JavaScript
-$pageContent .= '
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Search form submission
-    const searchForm = document.querySelector(".search-form");
-    if (searchForm) {
-        searchForm.addEventListener("submit", function(e) {
-            e.preventDefault();
-            // For now, just show an alert
-            alert(\'Search functionality will be implemented soon!\');
-        });
-    }
-});
-</script>
-';
+// JavaScript is now handled by SearchSection component
 
 // Add content to layout data
 $layoutData['content'] = $pageContent;
