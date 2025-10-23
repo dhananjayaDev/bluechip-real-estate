@@ -967,8 +967,13 @@ class AdminController extends Controller {
         }
     }
     
+    private function isAdmin() {
+        return isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
+    }
+    
     private function jsonResponse($data) {
         header('Content-Type: application/json');
         echo json_encode($data);
         exit;
     }
+}

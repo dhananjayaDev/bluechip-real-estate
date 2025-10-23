@@ -2154,7 +2154,8 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                     <div class="contact-content">
                         <h3>Get In Touch</h3>
                         <p>Send us a message and we'll get back to you soon.</p>
-                        <form class="contact-form" method="POST" action="/contact">
+                        <form class="contact-form" id="contactForm" method="POST" action="/contact">
+                            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                             <div class="form-group">
                                 <label for="name">Full Name</label>
                                 <input type="text" id="name" name="name" required>
@@ -2240,6 +2241,10 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div id="loginMessage" class="alert alert-info" style="display: none; margin-bottom: 20px;">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Please sign in to submit your contact request. This helps us provide better service and track your inquiries.
+                    </div>
                     <form id="loginForm">
                         <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                         
@@ -2530,6 +2535,17 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                 modal.addEventListener('hidden.bs.modal', cleanupModals);
             });
 
+            // Hide login message when modal is opened from navbar
+            const loginModalTrigger = document.querySelector('[data-bs-target="#loginModal"]');
+            if (loginModalTrigger) {
+                loginModalTrigger.addEventListener('click', function() {
+                    const loginMessage = document.getElementById('loginMessage');
+                    if (loginMessage) {
+                        loginMessage.style.display = 'none';
+                    }
+                });
+            }
+
             // Password toggle functionality
             const toggleLoginPassword = document.getElementById('toggleLoginPassword');
             const loginPassword = document.getElementById('loginPassword');
@@ -2689,6 +2705,66 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
                 }
             });
         });
+
+        // Contact form authentication check
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Check if user is authenticated
+                    fetch('/contact/check-auth')
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.isLoggedIn) {
+                                // User is logged in, submit the form
+                                submitContactForm();
+                            } else {
+                                // User is not logged in, show existing login modal with message
+                                const loginMessage = document.getElementById('loginMessage');
+                                if (loginMessage) {
+                                    loginMessage.style.display = 'block';
+                                }
+                                const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                                loginModal.show();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error checking authentication:', error);
+                            // Fallback: show login modal with message
+                            const loginMessage = document.getElementById('loginMessage');
+                            if (loginMessage) {
+                                loginMessage.style.display = 'block';
+                            }
+                            const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                            loginModal.show();
+                        });
+                });
+            }
+        });
+        
+        function submitContactForm() {
+            const formData = new FormData(document.getElementById('contactForm'));
+            
+            fetch('/contact', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    document.getElementById('contactForm').reset();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        }
     </script>
 </body>
 </html>

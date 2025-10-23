@@ -417,7 +417,7 @@ function viewRequest(requestId) {
             modalContent.innerHTML = `
                 <div class="alert alert-danger">
                     <i class="fas fa-exclamation-triangle me-2"></i>
-                    ${data.message}
+                    \${data.message}
                 </div>
             `;
         }
@@ -441,38 +441,38 @@ function renderRequestDetails(request) {
                     <h6 class="text-primary mb-3"><i class="fas fa-user me-2"></i>Contact Information</h6>
                     <div class="info-item">
                         <label>Name:</label>
-                        <span>${request.name}</span>
+                        <span>\${request.name}</span>
                     </div>
                     <div class="info-item">
                         <label>Email:</label>
-                        <span><a href="mailto:${request.email}">${request.email}</a></span>
+                        <span><a href="mailto:\${request.email}">\${request.email}</a></span>
                     </div>
                     <div class="info-item">
                         <label>Phone:</label>
-                        <span>${request.phone || 'N/A'}</span>
+                        <span>\${request.phone || \'N/A\'}</span>
                     </div>
                     <div class="info-item">
                         <label>Contact Method:</label>
-                        <span class="badge bg-info">${request.contact_method}</span>
+                        <span class="badge bg-info">\${request.contact_method}</span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <h6 class="text-primary mb-3"><i class="fas fa-home me-2"></i>Property Information</h6>
                     <div class="info-item">
                         <label>Property:</label>
-                        <span><strong>${request.property_title || 'Property #' + request.property_id}</strong></span>
+                        <span><strong>\${request.property_title || \'Property #\' + request.property_id}</strong></span>
                     </div>
                     <div class="info-item">
                         <label>Location:</label>
-                        <span>${request.property_location || 'N/A'}</span>
+                        <span>\${request.property_location || \'N/A\'}</span>
                     </div>
                     <div class="info-item">
                         <label>Price:</label>
-                        <span>${request.property_price ? 'Rs. ' + new Intl.NumberFormat().format(request.property_price) : 'N/A'}</span>
+                        <span>\${request.property_price ? \'Rs. \' + new Intl.NumberFormat().format(request.property_price) : \'N/A\'}</span>
                     </div>
                     <div class="info-item">
                         <label>Status:</label>
-                        <span class="badge bg-${request.status === 'pending' ? 'warning' : (request.status === 'contacted' ? 'info' : 'success')}">${request.status}</span>
+                        <span class="badge bg-\${request.status === \'pending\' ? \'warning\' : (request.status === \'contacted\' ? \'info\' : \'success\')}">\${request.status}</span>
                     </div>
                 </div>
             </div>
@@ -483,7 +483,7 @@ function renderRequestDetails(request) {
                 <div class="col-12">
                     <h6 class="text-primary mb-3"><i class="fas fa-comment me-2"></i>Message</h6>
                     <div class="message-content p-3 bg-light rounded">
-                        ${request.message}
+                        \${request.message}
                     </div>
                 </div>
             </div>
@@ -495,23 +495,23 @@ function renderRequestDetails(request) {
                     <h6 class="text-primary mb-3"><i class="fas fa-calendar me-2"></i>Request Details</h6>
                     <div class="info-item">
                         <label>Request Date:</label>
-                        <span>${new Date(request.created_at).toLocaleDateString()}</span>
+                        <span>\${new Date(request.created_at).toLocaleDateString()}</span>
                     </div>
                     <div class="info-item">
                         <label>Request Time:</label>
-                        <span>${new Date(request.created_at).toLocaleTimeString()}</span>
+                        <span>\${new Date(request.created_at).toLocaleTimeString()}</span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <h6 class="text-primary mb-3"><i class="fas fa-tools me-2"></i>Quick Actions</h6>
                     <div class="d-flex gap-2">
-                        <a href="mailto:${request.email}?subject=Re: Property Inquiry - ${request.property_title || 'Property #' + request.property_id}" class="btn btn-sm btn-primary">
+                        <a href="mailto:\${request.email}?subject=Re: Property Inquiry - \${request.property_title || \'Property #\' + request.property_id}" class="btn btn-sm btn-primary">
                             <i class="fas fa-envelope me-1"></i>Reply Email
                         </a>
-                        ${request.phone ? `<a href="tel:${request.phone}" class="btn btn-sm btn-success">
+                        \${request.phone ? `<a href="tel:\${request.phone}" class="btn btn-sm btn-success">
                             <i class="fas fa-phone me-1"></i>Call
-                        </a>` : ''}
-                        <a href="/property/${request.property_id}" target="_blank" class="btn btn-sm btn-info">
+                        </a>` : \'\'}
+                        <a href="/property/\${request.property_id}" target="_blank" class="btn btn-sm btn-info">
                             <i class="fas fa-external-link-alt me-1"></i>View Property
                         </a>
                     </div>

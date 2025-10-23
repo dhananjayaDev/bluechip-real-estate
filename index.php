@@ -45,6 +45,8 @@ $router->addRoute('GET', '/register', 'AuthController@register');
 $router->addRoute('POST', '/register', 'AuthController@store');
 $router->addRoute('POST', '/logout', 'AuthController@logout');
 $router->addRoute('POST', '/property/{id}/favorite', 'PropertyController@toggleFavorite');
+$router->addRoute('POST', '/contact', 'ContactController@submit');
+$router->addRoute('GET', '/contact/check-auth', 'ContactController@checkAuth');
 
 // Admin routes
 $router->addRoute('GET', '/admin/login', 'AdminController@login');
