@@ -15,28 +15,9 @@ class PropertyController extends Controller {
         $hasFilters = !empty(array_filter($_GET));
         
         if ($hasFilters) {
-            // Show search results
-            $filters = [
-                'search' => $_GET['search'] ?? '',
-                'city' => $_GET['city'] ?? '',
-                'property_type' => $_GET['property_type'] ?? '',
-                'min_price' => $_GET['min_price'] ?? '',
-                'max_price' => $_GET['max_price'] ?? '',
-                'bedrooms' => $_GET['bedrooms'] ?? ''
-            ];
-            
-            $page = (int)($_GET['page'] ?? 1);
-            $properties = $this->propertyModel->search($filters, $page);
-            $totalProperties = $this->propertyModel->getCount($filters);
-            $totalPages = ceil($totalProperties / ITEMS_PER_PAGE);
-            
-            $this->view('properties/index', [
-                'properties' => $properties,
-                'filters' => $filters,
-                'currentPage' => $page,
-                'totalPages' => $totalPages,
-                'totalProperties' => $totalProperties
-            ]);
+            // Redirect to all properties page with search parameters
+            $queryString = http_build_query($_GET);
+            $this->redirect('/properties?' . $queryString);
         } else {
             // Show home page
             $this->view('home', [
@@ -46,8 +27,33 @@ class PropertyController extends Controller {
     }
     
     public function all() {
-        // Show all properties page
-        $this->view('all_properties', []);
+        // Get search parameters
+        $filters = [
+            'search' => $_GET['search'] ?? '',
+            'city' => $_GET['city'] ?? '',
+            'property_type' => $_GET['property_type'] ?? '',
+            'min_price' => $_GET['min_price'] ?? '',
+            'max_price' => $_GET['max_price'] ?? '',
+            'bedrooms' => $_GET['bedrooms'] ?? '',
+            'bathrooms' => $_GET['bathrooms'] ?? ''
+        ];
+        
+        $page = (int)($_GET['page'] ?? 1);
+        $limit = 12; // Show 12 properties per page
+        
+        // Get properties based on filters
+        $properties = $this->propertyModel->search($filters, $page, $limit);
+        $totalProperties = $this->propertyModel->getCount($filters);
+        $totalPages = ceil($totalProperties / $limit);
+        
+        $this->view('all_properties', [
+            'properties' => $properties,
+            'filters' => $filters,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'totalProperties' => $totalProperties,
+            'csrfToken' => $this->generateCSRF()
+        ]);
     }
     
     public function show($id) {

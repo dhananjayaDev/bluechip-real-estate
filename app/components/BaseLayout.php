@@ -25,7 +25,13 @@ class BaseLayout extends Component {
         $searchSection = null;
         $searchAssets = ['html' => '', 'css' => '', 'js' => ''];
         if ($activePage === 'properties' || (!in_array($activePage, ['dashboard', 'admin-properties', 'users', 'requests', 'admin-property-detail', 'property-detail']) && !str_contains($activePage, 'property'))) {
-            $searchSection = new SearchSection($this->data);
+            $searchData = $this->data;
+            if ($activePage === 'properties') {
+                $searchData['targetUrl'] = '/properties';
+            } else {
+                $searchData['targetUrl'] = '/properties'; // Home page search now goes to /properties
+            }
+            $searchSection = new SearchSection($searchData);
             $searchAssets = $searchSection->renderWithAssets();
         }
         

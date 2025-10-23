@@ -1,7 +1,9 @@
 <?php
-// Get all properties from database
-$propertyModel = new Property();
-$allProperties = $propertyModel->search([], 1, 12); // Get first 12 properties
+// Properties data is now passed from the controller
+$allProperties = $properties ?? [];
+
+// Properties data is passed from the controller via extract()
+// $properties, $filters, $totalProperties are available from the controller
 
 // Initialize components
 require_once APP_PATH . '/components/BaseLayout.php';
@@ -73,13 +75,19 @@ function renderProperties($properties) {
     return $html;
 }
 
+// Determine if this is a search result or all properties
+$isSearchResult = !empty(array_filter($filters ?? []));
+$totalProperties = $totalProperties ?? count($allProperties);
+
 // Create the page content
 $pageContent = '
     <!-- Properties Section -->
     <section class="properties-section">
         <div class="container">
-            <h2 class="section-title">All Properties</h2>
-            <p class="section-subtitle">Discover your perfect home from our extensive collection</p>
+            <h2 class="section-title">' . ($isSearchResult ? 'Search Results' : 'All Properties') . '</h2>
+            <p class="section-subtitle">' . ($isSearchResult ? 'Properties matching your search criteria' : 'Discover your perfect home from our extensive collection') . '</p>
+            
+            ' . ($isSearchResult ? '<div class="search-results-info mb-4"><strong>' . $totalProperties . ' Properties Found</strong></div>' : '') . '
             
             <div class="properties-grid">
                 ' . renderProperties($allProperties) . '
@@ -96,6 +104,15 @@ $pageContent .= '
 .properties-section {
     padding: 80px 0;
     background: #ffffff;
+}
+
+.search-results-info {
+    background-color: #f8fafc;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    color: #374151;
+    font-size: 1.1rem;
 }
 
 .section-title {

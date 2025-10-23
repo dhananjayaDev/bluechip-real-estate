@@ -2422,8 +2422,14 @@ $featuredProperties = $propertyModel->search(['featured' => 1], 1, 6);
             const searchInput = this.querySelector('input[name="search"]');
             const citySelect = this.querySelector('select[name="city"]');
             const typeSelect = this.querySelector('select[name="property_type"]');
+            const bedroomsSelect = this.querySelector('select[name="bedrooms"]');
+            const bathroomsSelect = this.querySelector('select[name="bathrooms"]');
+            const minPriceInput = this.querySelector('input[name="min_price"]');
+            const maxPriceInput = this.querySelector('input[name="max_price"]');
             
-            if (!searchInput.value && !citySelect.value && !typeSelect.value) {
+            if (!searchInput.value && !citySelect.value && !typeSelect.value && 
+                !bedroomsSelect.value && !bathroomsSelect.value && 
+                !minPriceInput.value && !maxPriceInput.value) {
                 e.preventDefault();
                 alert('Please enter at least one search criteria.');
             }

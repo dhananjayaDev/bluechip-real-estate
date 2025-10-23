@@ -93,6 +93,11 @@ class Property extends Model {
             $params[] = $filters['bedrooms'];
         }
         
+        if (!empty($filters['bathrooms'])) {
+            $sql .= " AND p.bathrooms >= ?";
+            $params[] = $filters['bathrooms'];
+        }
+        
         if (!empty($filters['status'])) {
             $sql .= " AND p.status = ?";
             $params[] = $filters['status'];

@@ -2,6 +2,13 @@
 
 class SearchSection extends Component {
     
+    private $targetUrl = '/';
+    
+    public function __construct($data = []) {
+        parent::__construct($data);
+        $this->targetUrl = $data['targetUrl'] ?? '/';
+    }
+    
     public function render() {
         return '
         <!-- Search Section -->
@@ -11,7 +18,7 @@ class SearchSection extends Component {
                     <div class="col-lg-10">
                         <div class="search-form">
                             <h3>Search Properties</h3>
-                            <form action="/" method="GET">
+                            <form action="' . $this->targetUrl . '" method="GET">
                                 <div class="row">
                                     <div class="col-md-3 mb-3">
                                         <input type="text" class="form-control" name="search" placeholder="Keyword">
