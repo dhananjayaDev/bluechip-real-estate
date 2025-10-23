@@ -1,37 +1,53 @@
-# Bluechip Realty - Modern PHP Real Estate Website
+# Bluechip Real Estate Website
 
-A modern, responsive real estate website built with PHP using MVC architecture. Features include property listings, user authentication, property details pages, image galleries, and more.
+A modern, responsive real estate website built with PHP, featuring property search, user management, and admin panel functionality.
 
-## Features
+## 🏠 Features
 
-### 🏠 Property Management
-- Property listings with search and filtering
-- Detailed property pages with image galleries
-- Property features and amenities
-- Location maps integration
-- Similar properties suggestions
+### Public Features
+- **Property Search**: Advanced search with filters (location, type, price, bedrooms, bathrooms)
+- **Property Listings**: Browse all available properties with detailed information
+- **Property Details**: View individual property details with images and features
+- **Contact Forms**: Submit inquiries for specific properties
+- **User Authentication**: Register, login, and manage user accounts
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 
-### 👤 User Features
-- User registration and authentication
-- Property favorites system
-- Property request forms
-- User dashboard (favorites, requests)
+### Admin Features
+- **Property Management**: Add, edit, delete, and manage properties
+- **User Management**: View and manage user accounts
+- **Request Management**: Handle property inquiries and contact requests
+- **Dashboard**: Overview of system statistics and recent activity
 
-### 🎨 Modern Design
-- Responsive Bootstrap 5 design
-- Modern UI with smooth animations
-- Mobile-friendly interface
-- Print-friendly property pages
-- Social sharing capabilities
+## 🚀 Technology Stack
 
-### 🔒 Security Features
-- CSRF protection
-- Input validation and sanitization
-- Password hashing
-- SQL injection prevention
-- XSS protection
+- **Backend**: PHP 7.4+
+- **Database**: MySQL
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Styling**: Custom CSS with responsive design
+- **Architecture**: MVC (Model-View-Controller) pattern
 
-## Installation
+## 📁 Project Structure
+
+```
+├── app/
+│   ├── components/          # Reusable UI components
+│   ├── config/             # Configuration files
+│   ├── controllers/        # MVC Controllers
+│   ├── core/               # Core framework files
+│   ├── helpers/            # Helper functions
+│   ├── models/             # MVC Models
+│   └── views/              # MVC Views
+├── database/
+│   └── schema.sql          # Database schema
+├── public/
+│   ├── css/                # Stylesheets
+│   ├── js/                  # JavaScript files
+│   └── images/             # Images and uploads
+├── .gitignore              # Git ignore rules
+└── index.php               # Application entry point
+```
+
+## 🛠️ Installation
 
 ### Prerequisites
 - PHP 7.4 or higher
@@ -40,168 +56,84 @@ A modern, responsive real estate website built with PHP using MVC architecture. 
 
 ### Setup Instructions
 
-1. **Clone or download the project**
+1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd real-estate-01
+   git clone https://github.com/dhananjayaDev/bluechip-real-estate.git
+   cd bluechip-real-estate
    ```
 
-2. **Configure Database**
+2. **Database Setup**
    - Create a MySQL database named `real_estate`
    - Import the database schema:
      ```bash
      mysql -u root -p real_estate < database/schema.sql
      ```
 
-3. **Configure Application**
-   - Update database credentials in `app/config/database.php`:
-     ```php
-     define('DB_HOST', 'localhost');
-     define('DB_NAME', 'real_estate');
-     define('DB_USER', 'your_username');
-     define('DB_PASS', 'your_password');
-     ```
+3. **Configuration**
+   - Copy `.env.example` to `.env` (if available)
+   - Update database credentials in `app/config/database.php`
+   - Set up file permissions for uploads directory
 
-4. **Set Permissions**
-   ```bash
-   chmod 755 public/uploads/
-   chmod 755 public/images/
-   ```
+4. **Web Server Configuration**
+   - Point your web server document root to the project directory
+   - Ensure mod_rewrite is enabled (for Apache)
 
-5. **Configure Web Server**
-   
-   **For Apache (.htaccess):**
-   ```apache
-   RewriteEngine On
-   RewriteCond %{REQUEST_FILENAME} !-f
-   RewriteCond %{REQUEST_FILENAME} !-d
-   RewriteRule ^(.*)$ index.php [QSA,L]
-   ```
-   
-   **For Nginx:**
-   ```nginx
-   location / {
-       try_files $uri $uri/ /index.php?$query_string;
-   }
-   ```
+## 🔧 Configuration
 
-6. **Access the Website**
-   - Open your browser and navigate to your domain
-   - Default admin credentials:
-     - Email: `admin@bluechiprealty.com`
-     - Password: `password`
+### Database Configuration
+Update the database settings in `app/config/database.php`:
 
-## Project Structure
-
-```
-real-estate-01/
-├── app/
-│   ├── config/          # Configuration files
-│   ├── controllers/      # MVC Controllers
-│   ├── core/            # Core framework classes
-│   ├── helpers/          # Helper functions
-│   ├── models/           # MVC Models
-│   └── views/            # MVC Views
-├── database/             # Database schema
-├── public/               # Public assets
-│   ├── css/              # Stylesheets
-│   ├── js/               # JavaScript files
-│   ├── images/           # Images
-│   └── uploads/          # User uploads
-└── index.php             # Entry point
+```php
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'real_estate');
+define('DB_USER', 'your_username');
+define('DB_PASS', 'your_password');
 ```
 
-## Key Components
+### File Uploads
+- Upload directory: `public/uploads/`
+- Maximum file size: 5MB
+- Allowed extensions: jpg, jpeg, png, gif, webp
 
-### Models
-- **Property**: Handles property data and operations
-- **User**: Manages user authentication and profiles
-- **UserRequest**: Handles property requests
+## 🔒 Security Features
 
-### Controllers
-- **PropertyController**: Manages property listings and details
-- **AuthController**: Handles user authentication
+- **CSRF Protection**: All forms include CSRF tokens
+- **Input Validation**: Server-side validation for all inputs
+- **SQL Injection Prevention**: Prepared statements used throughout
+- **XSS Protection**: Output escaping implemented
+- **File Upload Security**: Restricted file types and sizes
+- **Session Management**: Secure session handling
 
-### Views
-- **Layouts**: Main application layout
-- **Properties**: Property listing and detail pages
-- **Auth**: Login and registration pages
+## 📱 Responsive Design
 
-## Configuration
+The website is fully responsive and optimized for:
+- Desktop computers (1200px+)
+- Tablets (768px - 1199px)
+- Mobile phones (320px - 767px)
 
-### Site Settings
-Update `app/config/config.php` to customize:
-- Site name and URL
-- Email settings
-- File upload limits
-- Image dimensions
+## 🧪 Testing
 
-### Database Schema
-The database includes tables for:
-- `users`: User accounts and authentication
-- `properties`: Property listings
-- `property_images`: Property photos
-- `property_features`: Property amenities
-- `user_requests`: User inquiries
-- `user_favorites`: User saved properties
+Before deployment, ensure you test:
+- User registration and login
+- Property search functionality
+- Admin panel features
+- File uploads
+- Responsive design on different devices
+- Cross-browser compatibility
 
-## Features Overview
+## 📄 License
 
-### Property Details Page
-- **Header**: Site logo, navigation, breadcrumbs
-- **Property Info**: Title, description, key details
-- **Image Gallery**: Swiper.js carousel with thumbnails
-- **Property Features**: Amenities and facilities
-- **Location Map**: Google Maps integration
-- **Request Form**: Contact form for logged-in users
-- **Agent Contact**: Contact information
-- **Similar Properties**: Related listings
-- **User Actions**: Favorites, share, print
+This project is proprietary software developed for Bluechip Real Estate.
 
-### User Authentication
-- Secure registration and login
-- Password hashing with PHP's `password_hash()`
-- Session management
-- CSRF protection
+## 🤝 Contributing
 
-### Security Features
-- Input validation and sanitization
-- SQL injection prevention with prepared statements
-- XSS protection with `htmlspecialchars()`
-- CSRF tokens for forms
-- Password strength requirements
+For internal development team only.
 
-## Customization
+## 📞 Support
 
-### Adding New Property Types
-1. Update the `property_type` enum in the database
-2. Add options to the property type filter
-3. Update property type display logic
-
-### Styling
-- Modify `public/css/style.css` for custom styling
-- Bootstrap 5 classes are used throughout
-- CSS custom properties for easy theming
-
-### Adding Features
-- Follow MVC pattern for new features
-- Add routes in `index.php`
-- Create corresponding controllers and models
-- Add views in appropriate directories
-
-## Browser Support
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers
-
-## License
-This project is open source and available under the MIT License.
-
-## Support
-For support and questions, please contact the development team.
+For technical support or questions, contact the development team.
 
 ---
 
-**Note**: Remember to update the Google Maps API key in the property details view for map functionality to work properly.
+**Bluechip Real Estate (Pvt) Limited**  
+*අපේ රටේ ඉඩම්ක් ගන්න හොඳම තැන*
